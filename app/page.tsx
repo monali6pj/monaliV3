@@ -1,10 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 
-type SpeechRecognitionType = typeof window extends any
-  ? (window & { webkitSpeechRecognition?: any }).webkitSpeechRecognition | any
-  : any;
-
 const QUESTIONS = [
   "Localisation et type de douleur ? (ex: lombaire, piqûre/tiraillement)",
   "Ancienneté + facteurs aggravants/soulageants ?",
@@ -36,7 +32,7 @@ export default function Home() {
     }
   }, []);
 
-  // --- Reco locale (Chrome/Android)
+  // Reco locale (Chrome/Android)
   function startListenLocal() {
     const SR: any = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SR) { alert("Reco locale indisponible sur ce navigateur."); return; }
@@ -62,7 +58,7 @@ export default function Home() {
     if (recogRef.current) recogRef.current.stop();
   }
 
-  // --- Enregistrement iPhone → /api/transcribe
+  // Enregistrement iPhone → /api/transcribe
   async function startRecordIPhone() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -98,7 +94,7 @@ export default function Home() {
     }
   }
 
-  // --- Étape suivante
+  // Étape suivante
   function next() {
     const trimmed = answer.trim();
     if (!trimmed) { alert("Dis quelque chose avant de valider 😉"); return; }
@@ -110,7 +106,7 @@ export default function Home() {
     stopRecordIPhone();
   }
 
-  // --- Génère le plan
+  // Génère le plan
   async function generate() {
     setStatus('génération du plan…');
     try {
@@ -129,7 +125,7 @@ export default function Home() {
     }
   }
 
-  // --- PDF médecin
+  // PDF médecin
   async function exportPDF() {
     try {
       setStatus('PDF…');
@@ -151,7 +147,7 @@ export default function Home() {
     }
   }
 
-  // ====== RENDER ======
+  // ===== RENDER =====
   return (
     <div className="relative -mt-20">
       <div className="grid md:grid-cols-2 gap-6">
@@ -159,9 +155,11 @@ export default function Home() {
         <section className="glass rounded-xxl p-5 md:p-6 shadow-soft">
           {/* Stepper */}
           <div className="flex items-center gap-2 mb-4">
-            {QUESTIONS.map((_, i) => (
-              <div key={i} className={`h-2 flex-1 rounded-full ${i < step ? 'bg-brand-500' : 'bg-white/10'}`} />
-            ))}
+            {QUESTIONS.map((_, i) => {
+              const base = 'h-2 flex-1 rounded-full ';
+              const fill = (i < step) ? 'bg-brand-500' : 'bg-white/10';
+              return <div key={i} className={base + fill} />;
+            })}
           </div>
 
           <div className="flex items-center justify-between mb-2">
