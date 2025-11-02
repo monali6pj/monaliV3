@@ -1,7 +1,7 @@
 {
   "name": "monali-v3-complete",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.3",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,11 +13,12 @@
     "react-dom": "18.2.0",
     "pdf-lib": "1.17.1"
   },
-"devDependencies": {
-  "@types/node": "20.14.9",
-  "@types/react": "18.2.74",
-  "autoprefixer": "10.4.20",
-  "postcss": "8.4.41",
-  "tailwindcss": "3.4.10",
-  "typescript": "5.6.3"
+  "devDependencies": {
+    "@types/node": "20.14.9",
+    "@types/react": "18.2.74",
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.41",
+    "tailwindcss": "3.4.10",
+    "typescript": "5.6.3"
+  }
 }
