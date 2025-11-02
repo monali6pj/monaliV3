@@ -19,14 +19,18 @@ export default function Home() {
   const [status, setStatus] = useState('prêt');
   const [plan, setPlan] = useState<any>(null);
   const [isIPhoneMode, setIsIPhoneMode] = useState(false);
-  const mediaRecRef = useRef<MediaRecorder|null>(null);
+  const mediaRecRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
-  const recogRef = useRef<SpeechRecognition|null>(null);
+  const recogRef = useRef<SpeechRecognition | null>(null);
 
-  useEffect(()=>{
-    // auto-detect Safari/iOS
+  useEffect(() => {
     const ua = navigator.userAgent.toLowerCase();
-    if (ua.includes('iphone') || ua.includes('ipad') || ua.includes('safari') && !ua.includes('chrome')) setIsIPhoneMode(true);
+    if (
+      ua.includes('iphone') ||
+      ua.includes('ipad') ||
+      (ua.includes('safari') && !ua.includes('chrome'))
+    )
+      setIsIPhoneMode(true);
   }, []);
 
   function startListenLocal() {
